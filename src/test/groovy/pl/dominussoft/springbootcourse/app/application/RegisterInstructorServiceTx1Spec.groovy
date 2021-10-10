@@ -6,10 +6,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations
 import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
 import pl.dominussoft.springbootcourse.app.infrastructure.persistence.CustomInstructorRepositoryImpl
-import spock.lang.Ignore
 import spock.lang.Specification
 
-@Ignore
 @DataJdbcTest
 // gives you -> @Transactional()
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

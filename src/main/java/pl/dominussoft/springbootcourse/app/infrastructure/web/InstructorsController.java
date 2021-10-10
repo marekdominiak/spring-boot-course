@@ -28,13 +28,14 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequiredArgsConstructor
 public class InstructorsController {
+    public final static String BASE_URL = "/instructors";
 
     private final RegisterInstructorService registerInstructorService;
     private final PagedResourcesAssembler<InstructorModel> pagedResourcesAssembler;
     private final InstructorRepository instructorRepository;
 
     //  @ResponseStatus(HttpStatus.CREATED) -> Why not?
-    @PostMapping(value = "/instructors", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = BASE_URL, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public HttpEntity<InstructorModel> registerInstructor(@RequestBody RegisterInstructorRequest request) {
         UUID id = registerInstructorService.registerInstructor(RegisterInstructor.builder()
                 .firstName(request.getFirstName())
@@ -48,7 +49,7 @@ public class InstructorsController {
         return ResponseEntity.created(link.toUri()).body(registeredInstructor);
     }
 
-    @GetMapping(value = "/instructors/{id}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = BASE_URL + "/{id}", produces = APPLICATION_JSON_VALUE)
     public InstructorModel get(@PathVariable UUID id) {
         return findById(id);
     }
@@ -69,7 +70,7 @@ public class InstructorsController {
         return model;
     }
 
-    @GetMapping(value = "/instructors", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = BASE_URL, produces = APPLICATION_JSON_VALUE)
     public PagedModel<InstructorModel> getAll(
             @PageableDefault(size = 10, page = 0, sort = "firstName", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<Instructor> instructorPage = instructorRepository.findAll(pageable);

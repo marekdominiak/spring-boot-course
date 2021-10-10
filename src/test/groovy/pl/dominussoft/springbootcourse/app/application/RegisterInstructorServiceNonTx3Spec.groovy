@@ -5,10 +5,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestExecutionListeners
 import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
 import pl.dominussoft.springbootcourse.app.infrastructure.persistence.DatabaseCleanerExtension
-import spock.lang.Ignore
 import spock.lang.Specification
 
-@Ignore
 @SpringBootTest
 @TestExecutionListeners(
         value = [DatabaseCleanerExtension],

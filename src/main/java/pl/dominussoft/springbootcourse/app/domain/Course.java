@@ -22,7 +22,6 @@ public class Course extends AggregateRoot {
 
     @Embedded(onEmpty = Embedded.OnEmpty.USE_NULL)
     private Price price;
-//    private Integer daysValidFromEnrollment;
 
     public Course(String title, String description, String duration, Set<String> keywords, Price price) {
         this.title = title;

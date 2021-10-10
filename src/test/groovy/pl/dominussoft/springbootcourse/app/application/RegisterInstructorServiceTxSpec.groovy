@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
-import spock.lang.Ignore
 import spock.lang.Specification
 
-@Ignore
 @Transactional
 @SpringBootTest
 // --> test execution listener OR Rollback

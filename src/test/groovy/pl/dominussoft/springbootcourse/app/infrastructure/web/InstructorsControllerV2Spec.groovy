@@ -8,6 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder
 import spock.lang.Specification
 
 import static RegisterInstructorRequestBuilder.aRegisterInstructorRequest
+import static pl.dominussoft.springbootcourse.app.infrastructure.web.InstructorsController.BASE_URL
 
 /**
  * Gotchas:
@@ -26,13 +27,13 @@ class InstructorsControllerV2Spec extends Specification implements BaseControlle
         def request = aRegisterInstructorRequest().build()
 
         when:
-        def response = rest.postForEntity("/instructors", request, InstructorModel)
+        def response = rest.postForEntity(BASE_URL, request, InstructorModel)
 
         then:
         response.statusCode == HttpStatus.CREATED
         def registeredInstructor = response.body
         registeredInstructor.id.getClass() == UUID
-        response.headers.getLocation() == new URI(appUrl + "/instructors/" + registeredInstructor.id)
+        response.headers.getLocation() == new URI(appUrl + BASE_URL + "/" + registeredInstructor.id)
         registeredInstructor.firstName == request.firstName
     }
 
@@ -41,22 +42,22 @@ class InstructorsControllerV2Spec extends Specification implements BaseControlle
         given:
         def request = aRegisterInstructorRequest().build()
 
-        def response = rest.postForEntity("/instructors", request, InstructorModel)
+        def response = rest.postForEntity(BASE_URL, request, InstructorModel)
         def instructor = response.getBody()
 
         when:
-        def getResponse = rest.getForEntity("/instructors/" + instructor.getId(), InstructorModel)
+        def getResponse = rest.getForEntity(BASE_URL + "/" + instructor.getId(), InstructorModel)
 
         then:
         getResponse.getStatusCode() == HttpStatus.OK
         def actual = getResponse.getBody()
-        actual.getRequiredLink("self").toUri() == new URI(appUrl + "/instructors/" + instructor.getId())
+        actual.getRequiredLink("self").toUri() == new URI(appUrl + BASE_URL + "/" + instructor.getId())
         actual == instructor
     }
 
     def "find all: none instructors are found"() {
         when:
-        def response = rest.exchange("/instructors", HttpMethod.GET, emptyBody(), new ParameterizedTypeReference<PagedModel<InstructorModel>>() {
+        def response = rest.exchange(BASE_URL, HttpMethod.GET, emptyBody(), new ParameterizedTypeReference<PagedModel<InstructorModel>>() {
         })
 
         then:
@@ -67,7 +68,7 @@ class InstructorsControllerV2Spec extends Specification implements BaseControlle
         given:
         for (int i in 1..noOfInstructors) {
             def request = aRegisterInstructorRequest().build()
-            rest.postForEntity("/instructors", request, InstructorModel)
+            rest.postForEntity(BASE_URL, request, InstructorModel)
         }
 
         when:
@@ -102,13 +103,13 @@ class InstructorsControllerV2Spec extends Specification implements BaseControlle
     }
 
     private ResponseEntity<InstructorModel> createdInstructorWithFirstName(String firstName) {
-        rest.postForEntity("/instructors", aRegisterInstructorRequest().withFirstName(firstName).build(), InstructorModel)
+        rest.postForEntity(BASE_URL, aRegisterInstructorRequest().withFirstName(firstName).build(), InstructorModel)
     }
 
     ResponseEntity<PagedModel<InstructorModel>> getWithPaging(page, size, sort) {
         HttpHeaders headers = new HttpHeaders()
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(appUrl + "/instructors")
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(appUrl + BASE_URL)
                 .queryParam("page", page)
                 .queryParam("size", size)
                 .queryParam("sort", sort)

@@ -7,7 +7,6 @@ import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
 import spock.lang.Ignore
 import spock.lang.Specification
 
-@Ignore
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 // --> test execution listener OR Rollback

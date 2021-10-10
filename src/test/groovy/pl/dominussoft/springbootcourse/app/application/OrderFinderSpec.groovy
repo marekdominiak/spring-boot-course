@@ -3,6 +3,7 @@ package pl.dominussoft.springbootcourse.app.application
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
+import pl.dominussoft.springbootcourse.app.domain.OrderBuilder
 import spock.lang.Specification
 
 @Transactional
@@ -12,14 +13,29 @@ class OrderFinderSpec extends Specification {
     @Autowired
     OrderFinder finder
 
-    def "find all: returns empty results"() {
-        given:
+//    @Autowired
+//    OrderRepository repository
 
+    def "find all: returns empty results"() {
         when:
-        def orders = finder.findOrder(UUID.randomUUID())
+        def order = finder.findOrder(UUID.randomUUID())
 
         then:
-        orders.isEmpty()
+        order == null
+    }
+
+    def "find all: returns some orders"() {
+        given:
+        def order1 = OrderBuilder.anOrder().build()
+        def order2 = OrderBuilder.anOrder().build()
+//        repository.save(order1)
+//        repository.save(order2)
+
+        when:
+        def orders = finder.findAll()
+
+        then:
+        orders.size() == 2
     }
 
 }
