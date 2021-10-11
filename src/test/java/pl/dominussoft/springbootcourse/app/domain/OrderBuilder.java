@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public final class OrderBuilder {
-    UUID id = UUID.randomUUID();
+    UUID id;
     UUID userId = UUID.randomUUID();
     LocalDate orderedAt = LocalDate.now();
     Set<OrderLine> lines = new HashSet<>();

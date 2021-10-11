@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import pl.dominussoft.springbootcourse.app.domain.OrderBuilder
+import pl.dominussoft.springbootcourse.app.domain.OrderRepository
 import spock.lang.Specification
 
 @Transactional
@@ -13,8 +14,8 @@ class OrderFinderSpec extends Specification {
     @Autowired
     OrderFinder finder
 
-//    @Autowired
-//    OrderRepository repository
+    @Autowired
+    OrderRepository repository
 
     def "find all: returns empty results"() {
         when:
@@ -28,8 +29,8 @@ class OrderFinderSpec extends Specification {
         given:
         def order1 = OrderBuilder.anOrder().build()
         def order2 = OrderBuilder.anOrder().build()
-//        repository.save(order1)
-//        repository.save(order2)
+        repository.save(order1)
+        repository.save(order2)
 
         when:
         def orders = finder.findAll()

@@ -1,13 +1,16 @@
 package pl.dominussoft.springbootcourse.app.application;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.dominussoft.springbootcourse.app.domain.*;
 
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-@ApplicationService
+@Service
+@Transactional
 @RequiredArgsConstructor
 public class AddCourseToCartService {
 
