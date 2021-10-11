@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import pl.dominussoft.springbootcourse.app.domain.Course;
-import pl.dominussoft.springbootcourse.app.domain.CourseRepository;
 import pl.dominussoft.springbootcourse.app.domain.Currency;
 import pl.dominussoft.springbootcourse.app.domain.Price;
 
@@ -22,7 +21,7 @@ import java.util.stream.Stream;
  * Shown to compare implementations.
  */
 @RequiredArgsConstructor
-public class CourseRepositoryJdbcImpl implements CourseRepository {
+public class CourseRepositoryJdbcImpl {
 
     public static final String INSERT_COURSE = "insert into course (id, title, description, duration, amount, currency, keywords) values (:id, :title, :description, :duration, :amount, :currency, :keywords)";
     public static final String UPDATE_COURSE = "update course set title = :title, description = :description, duration = :duration, amount = :amount, currency =:currency, keywords = :keywords where id = :id";
@@ -48,7 +47,6 @@ public class CourseRepositoryJdbcImpl implements CourseRepository {
         }
     }
 
-    @Override
     public Course save(Course course) {
         if (course.getId() != null) {
             jdbc.update(UPDATE_COURSE, Map.of(
