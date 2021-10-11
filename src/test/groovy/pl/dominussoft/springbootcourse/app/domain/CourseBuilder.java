@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public final class CourseBuilder {
-    private UUID id = UUID.randomUUID();
+    private UUID id;
     private String title = "title";
     // metadata -> could be a separate class (VO)
     private String description = "some description";
