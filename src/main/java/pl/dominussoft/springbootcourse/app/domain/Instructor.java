@@ -17,12 +17,17 @@ public class Instructor extends AggregateRoot {
     private String bio;
 
     @Getter
+    private Integer age;
+
+    @Getter
     Set<String> keywords;
 
-    public Instructor(String firstName, String lastName, String bio, Set<String> keywords) {
+
+    public Instructor(String firstName, String lastName, String bio, Integer age, Set<String> keywords) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.bio = bio;
+        this.age = age;
         this.keywords = keywords;
     }
 

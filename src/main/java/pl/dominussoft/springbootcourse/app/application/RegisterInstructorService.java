@@ -18,19 +18,23 @@ public class RegisterInstructorService {
 
     @Transactional
     public UUID registerInstructor(RegisterInstructor cmd) {
-        final var instructor = new Instructor(cmd.getFirstName(), cmd.getLastName(), cmd.getBio(), cmd.getKeywords());
+        final var instructor = newInstructor(cmd);
         final var saved = repository.save(instructor);
         return saved.getId();
     }
 
+    private Instructor newInstructor(RegisterInstructor cmd) {
+        return new Instructor(cmd.getFirstName(), cmd.getLastName(), cmd.getBio(), 42, cmd.getKeywords());
+    }
+
     public UUID registerInstructorNoTx(RegisterInstructor cmd) {
-        final var instructor = new Instructor(cmd.getFirstName(), cmd.getLastName(), cmd.getBio(), cmd.getKeywords());
+        final var instructor = newInstructor(cmd);
         final var saved = repository.save(instructor);
         return saved.getId();
     }
 
     public UUID registerInstructorNoTxThrow(RegisterInstructor cmd) {
-        final var instructor = new Instructor(cmd.getFirstName(), cmd.getLastName(), cmd.getBio(), cmd.getKeywords());
+        final var instructor = newInstructor(cmd);
         final var saved = repository.save(instructor);
         throw new RuntimeException("Boom");
     }

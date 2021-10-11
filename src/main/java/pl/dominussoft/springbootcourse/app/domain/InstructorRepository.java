@@ -16,4 +16,5 @@ public interface InstructorRepository {
     Instructor save(Instructor instructor);
 
     Optional<Instructor> findById(UUID uuid);
+
 }

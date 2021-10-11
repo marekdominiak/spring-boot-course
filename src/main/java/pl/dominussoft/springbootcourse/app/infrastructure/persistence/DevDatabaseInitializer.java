@@ -48,7 +48,7 @@ public class DevDatabaseInitializer implements CommandLineRunner {
                     Person person = FAIRY.person();
                     TextProducer textProducer = FAIRY.textProducer();
                     Set<String> keywords = Set.of(textProducer.latinWord(), textProducer.latinWord());
-                    Instructor entity = new Instructor(person.getFirstName(), person.getLastName(), textProducer.text(), keywords);
+                    Instructor entity = new Instructor(person.getFirstName(), person.getLastName(), textProducer.text(), person.getAge(), keywords);
                     log.info("Saved instructor {}: {}", i, entity);
                     instructorRepository.save(entity);
                 }

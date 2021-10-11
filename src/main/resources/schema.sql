@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS instructor (
     first_name VARCHAR(200) not null,
     last_name VARCHAR(200) not null,
     bio VARCHAR(4000),
+    age int,
     keywords ARRAY[1000],
     primary key (id)
 

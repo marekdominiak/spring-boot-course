@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
 import pl.dominussoft.springbootcourse.app.infrastructure.persistence.CustomInstructorRepositoryImpl
-import spock.lang.Ignore
 import spock.lang.Specification
 
 @Transactional(propagation = Propagation.NEVER)
@@ -16,7 +15,6 @@ import spock.lang.Specification
 // wybrakowany kontext
 // gives you -> @Transactional()
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Ignore
 class RegisterInstructorServiceTx1Spec extends Specification {
 
     @Autowired

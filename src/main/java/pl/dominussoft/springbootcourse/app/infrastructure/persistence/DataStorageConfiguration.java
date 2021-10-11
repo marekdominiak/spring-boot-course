@@ -60,10 +60,16 @@ public class DataStorageConfiguration extends AbstractJdbcConfiguration {
         return event -> {
             var entity = event.getEntity();
             if (entity instanceof AggregateRoot) {
-                ((AggregateRoot) entity).setId(UUID.randomUUID());
+                AggregateRoot entity1 = (AggregateRoot) entity;
+                if (entity1.getId() == null) {
+                    entity1.setId(UUID.randomUUID());
+                }
             }
             if (entity instanceof Entity) {
-                ((Entity) entity).setId(UUID.randomUUID());
+                Entity entity1 = (Entity) entity;
+                if (entity1.getId() == null) {
+                    entity1.setId(UUID.randomUUID());
+                }
             }
         };
     }
