@@ -15,12 +15,9 @@ class RegisterInstructorServiceNonTx2Spec extends Specification {
     @Autowired
     InstructorRepository instructorRepository
 
-
+    @Autowired
     RegisterInstructorService service
 
-    def setup() {
-        service = new RegisterInstructorService(instructorRepository)
-    }
 
     def "handle: saves instructor to db"() {
         given:
