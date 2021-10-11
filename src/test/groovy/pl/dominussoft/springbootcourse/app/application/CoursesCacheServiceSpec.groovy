@@ -16,6 +16,8 @@ class CoursesCacheServiceSpec extends Specification {
         expect:
         service.doSomething()
         service.doSomething()
+        service.doSomething()
+        service.doSomething()
 
     }
 

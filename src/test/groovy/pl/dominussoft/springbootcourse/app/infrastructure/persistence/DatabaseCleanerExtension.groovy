@@ -21,7 +21,7 @@ class DatabaseCleanerExtension implements TestExecutionListener {
 
         def applicationContext = testContext.getApplicationContext()
 
-        def dataSource = applicationContext.getBean(DataSource)
+        DataSource dataSource = applicationContext.getBean(DataSource)
         def jdbc = new JdbcTemplate(dataSource)
         def txManager = applicationContext.getBean(PlatformTransactionManager)
 

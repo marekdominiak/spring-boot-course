@@ -4,9 +4,18 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.hateoas.IanaLinkRelations
 import pl.dominussoft.springbootcourse.app.domain.Role
 import pl.dominussoft.springbootcourse.app.domain.UserAccount
+import spock.lang.Ignore
 import spock.lang.Specification
 
+/**
+ * duplikacji
+ * nazwy
+ * czetelnosc: 1-10 - 3-4
+ *
+ */
+@Ignore
 class CartControllerV0Spec extends Specification implements BaseControllerV1Spec {
+
 
     UUID course1
     UUID course2
@@ -29,13 +38,15 @@ class CartControllerV0Spec extends Specification implements BaseControllerV1Spec
     }
 
     def "add"() {
-        when:
+        given:
         def user = new UserAccount("Student", "Student", "student@ecourses.pl", encoder.encode("student"), Role.STUDENT)
         def rawPassword = user.getPassword()
         this.loggedInUser = accountRepository.save(loggedInUser)
         this.appUrl = "http://localhost:" + localServerPort
         def builder = restTemplateBuilder.rootUri(appUrl)
         this.rest = new TestRestTemplate(builder, user.getEmail(), rawPassword, null)
+
+        when:
         def response = rest.postForEntity("/cart/", new AddCourseToCartRequest(course1), CartModel)
 
         then:

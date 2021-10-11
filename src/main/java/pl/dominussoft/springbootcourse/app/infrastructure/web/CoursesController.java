@@ -1,6 +1,5 @@
 package pl.dominussoft.springbootcourse.app.infrastructure.web;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.Link;
@@ -24,12 +23,17 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequiredArgsConstructor
 public class CoursesController {
 
     public static final String BASE_URL = "/courses/";
+
     private final CreateCourseService createCourseService;
     private final CourseRepository courseRepository;
+
+    public CoursesController(CreateCourseService createCourseService, CourseRepository courseRepository) {
+        this.createCourseService = createCourseService;
+        this.courseRepository = courseRepository;
+    }
 
     @PostMapping(value = BASE_URL, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public HttpEntity<CourseModel> post(@RequestBody CreateCourseRequest request) {

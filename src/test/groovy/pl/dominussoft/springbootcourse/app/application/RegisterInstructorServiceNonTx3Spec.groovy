@@ -5,6 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestExecutionListeners
 import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
 import pl.dominussoft.springbootcourse.app.infrastructure.persistence.DatabaseCleanerExtension
+import spock.lang.Ignore
 import spock.lang.Specification
 
 @SpringBootTest
@@ -16,12 +17,8 @@ class RegisterInstructorServiceNonTx3Spec extends Specification {
     @Autowired
     InstructorRepository instructorRepository
 
-
+    @Autowired
     RegisterInstructorService service
-
-    def setup() {
-        service = new RegisterInstructorService(instructorRepository)
-    }
 
     def "handle: saves instructor to db"() {
         given:
@@ -68,6 +65,7 @@ class RegisterInstructorServiceNonTx3Spec extends Specification {
         instructorRepository.findAll().size() == 1
     }
 
+    @Ignore
     def "handleNoTxThrow: throws exception during and data should not be in the db"() {
         given:
         def createInstructor = createInstructorCmd()

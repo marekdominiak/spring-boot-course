@@ -1,6 +1,5 @@
 package pl.dominussoft.springbootcourse.app.application;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.dominussoft.springbootcourse.app.domain.Instructor;
@@ -9,10 +8,13 @@ import pl.dominussoft.springbootcourse.app.domain.InstructorRepository;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class RegisterInstructorService {
 
     private final InstructorRepository repository;
+
+    public RegisterInstructorService(InstructorRepository repository) {
+        this.repository = repository;
+    }
 
     @Transactional
     public UUID registerInstructor(RegisterInstructor cmd) {

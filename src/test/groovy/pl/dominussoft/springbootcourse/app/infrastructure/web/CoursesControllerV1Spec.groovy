@@ -2,6 +2,7 @@ package pl.dominussoft.springbootcourse.app.infrastructure.web
 
 import org.springframework.hateoas.IanaLinkRelations
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import spock.lang.Specification
 
 import static pl.dominussoft.springbootcourse.app.domain.UserAccountBuilder.aStudent
@@ -91,10 +92,14 @@ class CoursesControllerV1Spec extends Specification implements BaseControllerV1S
         setupRestClient(aStudent().withWrongPassword())
 
         when:
-        def response = rest.postForEntity(BASE_URL, CreateCourseRequestBuilder.aCreateCourseRequest().build(), CourseModel)
+        def response = createCourse()
 
         then:
         response.statusCode == HttpStatus.UNAUTHORIZED
+    }
+
+    private ResponseEntity<CourseModel> createCourse() {
+        rest.postForEntity(BASE_URL, CreateCourseRequestBuilder.aCreateCourseRequest().build(), CourseModel)
     }
 
     /**
