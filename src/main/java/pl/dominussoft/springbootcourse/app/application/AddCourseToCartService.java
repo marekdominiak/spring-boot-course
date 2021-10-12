@@ -1,6 +1,5 @@
 package pl.dominussoft.springbootcourse.app.application;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.dominussoft.springbootcourse.app.domain.*;
@@ -11,12 +10,17 @@ import java.util.UUID;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class AddCourseToCartService {
 
     private final CourseRepository courseRepository;
     private final UserAccountRepository userAccountRepository;
     private final CartRepository cartRepository;
+
+    public AddCourseToCartService(CourseRepository courseRepository, UserAccountRepository userAccountRepository, CartRepository cartRepository) {
+        this.courseRepository = courseRepository;
+        this.userAccountRepository = userAccountRepository;
+        this.cartRepository = cartRepository;
+    }
 
     public UUID handle(AddCourseToCart cmd) {
         Course course = courseRepository.findById(cmd.getCourseId()).orElseThrow();

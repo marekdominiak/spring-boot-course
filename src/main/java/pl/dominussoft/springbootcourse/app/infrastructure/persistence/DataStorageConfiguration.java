@@ -24,6 +24,7 @@ import java.util.UUID;
 @EnableJdbcRepositories(basePackages = {"pl.dominussoft.springbootcourse.app"})
 public class DataStorageConfiguration extends AbstractJdbcConfiguration {
 
+    public static final int FIVE_MINUTES = 60 * 5;
     @Autowired
     private DataSource dataSource;
 
@@ -38,7 +39,9 @@ public class DataStorageConfiguration extends AbstractJdbcConfiguration {
 
     @Bean
     PlatformTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dataSource());
+        DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager(dataSource());
+        dataSourceTransactionManager.setDefaultTimeout(FIVE_MINUTES);
+        return dataSourceTransactionManager;
     }
 
     //    @Bean
