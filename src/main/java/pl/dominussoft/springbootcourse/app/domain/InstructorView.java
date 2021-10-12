@@ -1,11 +1,10 @@
 package pl.dominussoft.springbootcourse.app.domain;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
-public
-class InstructorView {
-    String firstName;
-    String lastName;
-    String age;
+@Value
+public class InstructorView {
+    String firstName1;
+    String lastName1;
+    String age1;
 }

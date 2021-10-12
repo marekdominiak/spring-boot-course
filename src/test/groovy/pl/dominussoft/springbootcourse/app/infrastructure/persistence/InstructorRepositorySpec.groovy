@@ -3,10 +3,8 @@ package pl.dominussoft.springbootcourse.app.infrastructure.persistence
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
-import pl.dominussoft.springbootcourse.app.domain.Instructor
-import pl.dominussoft.springbootcourse.app.domain.InstructorBuilder
-import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
-import pl.dominussoft.springbootcourse.app.domain.InstructorView
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations
+import pl.dominussoft.springbootcourse.app.domain.*
 import spock.lang.Specification
 
 import static pl.dominussoft.springbootcourse.app.domain.InstructorBuilder.anInstructor
@@ -17,6 +15,18 @@ class InstructorRepositorySpec extends Specification {
 
     @Autowired
     InstructorRepository repository
+
+    @Autowired
+    CourseRepository courseRepository
+
+    @Autowired
+    NamedParameterJdbcOperations jdbc
+
+    CartRepository cartRepository
+
+    def setup() {
+        cartRepository = new CartRepositoryJdbcImpl(jdbc)
+    }
 
 
     def "1. finding by first name: works fine"() {
@@ -36,7 +46,7 @@ class InstructorRepositorySpec extends Specification {
         Instructor saved = saved(anInstructor().withFirstName("Melania"))
 
         when:
-        def found = null
+        def found = repository.findByFirstNameLike("%elan%")
 
         then:
         found.contains(saved)
@@ -47,7 +57,7 @@ class InstructorRepositorySpec extends Specification {
         Instructor saved = saved(anInstructor().withFirstName("Melania"))
 
         when:
-        def found = null
+        def found = repository.findByFirstNameStartingWith("Mel")
 
         then:
         found.contains(saved)
@@ -58,7 +68,7 @@ class InstructorRepositorySpec extends Specification {
         Instructor saved = saved(anInstructor().withFirstName("Melania"))
 
         when:
-        def found = null
+        def found = repository.findByFirstNameEndingWith("ania")
 
         then:
         found.contains(saved)
@@ -69,7 +79,7 @@ class InstructorRepositorySpec extends Specification {
         Instructor saved = saved(anInstructor().withFirstName("Melania"))
 
         when:
-        def found = null
+        def found = repository.findByFirstNameContaining("ani")
 
         then:
         found.contains(saved)
@@ -82,7 +92,7 @@ class InstructorRepositorySpec extends Specification {
         Instructor kate = saved(anInstructor().withFirstName("Kate"))
 
         when:
-        def found = null
+        def found = repository.findByFirstNameNotContaining("Melania")
 
         then:
         found.contains(kate)
@@ -95,7 +105,7 @@ class InstructorRepositorySpec extends Specification {
         Instructor i3 = saved(anInstructor().withAge(19))
 
         when:
-        def found = null
+        def found = repository.findByAgeGreaterThan(18)
 
         then:
         found.contains(i3)
@@ -109,7 +119,7 @@ class InstructorRepositorySpec extends Specification {
         Instructor i3 = saved(anInstructor().withAge(19))
 
         when:
-        def found = null
+        def found = repository.findByAgeGreaterThanEqual(18)
 
         then:
         found.containsAll([i2, i3])
@@ -122,7 +132,7 @@ class InstructorRepositorySpec extends Specification {
         Instructor i3 = saved(anInstructor().withAge(100))
 
         when:
-        def found = null
+        def found = repository.findByAgeBetween(15, 18)
 
         then:
         found.containsAll([i2])
@@ -135,7 +145,7 @@ class InstructorRepositorySpec extends Specification {
         Instructor i3 = saved(anInstructor().withFirstName("Melania").withAge(1))
 
         when:
-        def found = null
+        def found = repository.findByFirstNameOrderByAge("Melania")
 
         then:
         found == [i3, i2, i1] as List
@@ -146,7 +156,7 @@ class InstructorRepositorySpec extends Specification {
         Instructor saved = saved(anInstructor().withFirstName("Melania"))
 
         when:
-        def found = null
+        def found = repository.findByFirstNameLikeCustom("%elan%")
 
         then:
         found.contains(saved)
@@ -159,11 +169,36 @@ class InstructorRepositorySpec extends Specification {
         Instructor i3 = saved(anInstructor().withFirstName("Melania").withAge(1))
 
         when:
-        def found = null
+        def found = repository.findByProjection("Melania")
 
         then:
         found.size() == 3
         found.get(0).class == InstructorView
+        found.get(0).firstName1 == "Melania"
+        found.get(0).lastName1 == "R."
+        found.get(0).age1 == "99"
+    }
+
+    def "13. Projections: with join"() {
+        given:
+        def course = CourseBuilder.aCourse().build()
+        course = courseRepository.save(course)
+
+        def course2 = CourseBuilder.aCourse().build()
+        course2 = courseRepository.save(course2)
+
+        def cart = CartBuilder.aCart().build()
+
+        cart.add(course)
+        cart.add(course2)
+        cart = cartRepository.save(cart)
+
+        when:
+        def found = courseRepository.report()
+
+        then:
+        found.size() == 2
+
     }
 
 //

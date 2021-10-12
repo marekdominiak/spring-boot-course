@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
 import pl.dominussoft.springbootcourse.app.infrastructure.persistence.CustomInstructorRepositoryImpl
+import spock.lang.Ignore
 import spock.lang.Specification
 
+@Ignore
 @Transactional(propagation = Propagation.NEVER)
 @DataJdbcTest
 // wybrakowany kontext

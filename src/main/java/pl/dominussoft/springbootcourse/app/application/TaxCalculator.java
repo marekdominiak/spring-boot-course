@@ -1,15 +1,17 @@
 package pl.dominussoft.springbootcourse.app.application;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import pl.dominussoft.springbootcourse.app.domain.Order;
 
 @Slf4j
-//@Service
+@Service
 public class TaxCalculator {
 
     private final int taxPercent;
 
-    public TaxCalculator(int taxPercent) {
+    public TaxCalculator(@Value("${application.tax.percent:30}") int taxPercent) {
         this.taxPercent = taxPercent;
     }
 

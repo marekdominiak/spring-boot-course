@@ -15,6 +15,9 @@ import pl.dominussoft.springbootcourse.app.domain.Course;
 import pl.dominussoft.springbootcourse.app.domain.CourseRepository;
 import pl.dominussoft.springbootcourse.app.domain.Currency;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -109,9 +112,13 @@ public class CoursesController {
         }
     }
 
+    @PutMapping(value = "/courses/putWithHeaders/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public CourseModel putWithHeaders(
-            UpdateCourseRequest updateCourseRequest,
-            UUID id) {
+            @RequestBody UpdateCourseRequest updateCourseRequest,
+            @PathVariable UUID id,
+            @RequestHeader String ourOwnHeader,
+            HttpServletRequest request,
+            HttpServletResponse response) {
         Price price = updateCourseRequest.getPrice();
         courseService.handle(UpdateCourse.builder()
                 .id(id)
@@ -125,11 +132,16 @@ public class CoursesController {
 
         // add header (ourOwnHeader) from request to response
 
+
+        String value = request.getHeader("ourOwnHeader");
+        response.addHeader("ourOwnHeader", value);
+
         return get(id);
     }
 
 
-    public void postWithValidation(CreateCourseRequest request) {
+    @PostMapping(value = BASE_URL + "postWithValidation", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public void postWithValidation(@RequestBody @Valid CreateCourseRequest request) {
         saveCourse(request, request.getPrice());
     }
 
