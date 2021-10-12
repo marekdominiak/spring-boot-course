@@ -10,13 +10,21 @@ import pl.dominussoft.springbootcourse.app.domain.Order;
 public class TaxCalculator {
 
     private final int taxPercent;
+    private final String taxRateAsString;
 
-    public TaxCalculator(@Value("${application.tax.percent:30}") int taxPercent) {
+    public TaxCalculator(@Value("${application.tax.percent:30}") int taxPercent,
+                         @Value("${application.tax.percent.string:}") String taxRateAsString) {
         this.taxPercent = taxPercent;
+        this.taxRateAsString = taxRateAsString;
     }
 
     public int calculateTaxPercent(Order order) {
         log.info("Calculated {} tax to {}", taxPercent, order);
         return taxPercent;
     }
+
+    public String presentTaxRate() {
+        return taxRateAsString;
+    }
+
 }

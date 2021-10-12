@@ -12,12 +12,7 @@ import pl.dominussoft.springbootcourse.app.infrastructure.web.InstructorModel
 import pl.dominussoft.springbootcourse.app.infrastructure.web.RegisterInstructorRequest
 import spock.lang.Specification
 
-/**
- * Gotchas:
- * https://github.com/spring-projects/spring-hateoas/issues/222
- */
 @ActiveProfiles("no-security")
-//@AutoConfigureMockMvc(addFilters = false)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class InstructorsControllerV1Spec extends Specification {
 
