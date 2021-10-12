@@ -24,7 +24,7 @@ class InstructorRepositorySpec extends Specification {
         Instructor saved = saved(anInstructor().withFirstName("Melania"))
 
         when:
-        def found = null
+        def found = repository.findByFirstName("Melania")
 
         then:
         found.contains(saved)

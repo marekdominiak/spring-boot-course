@@ -23,6 +23,7 @@ import java.util.UUID;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@RestController
 public class CoursesController {
 
     public static final String BASE_URL = "/courses/";
@@ -35,19 +36,27 @@ public class CoursesController {
         this.courseRepository = courseRepository;
     }
 
+    @RequestMapping(value = "/courses/postWithRequestMapping",
+            method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public void postWithRequestMapping(@RequestBody CreateCourseRequest request) {
         saveCourse(request, request.getPrice());
     }
 
+    @PostMapping(value = "/courses/postWithPostMapping", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public void postWithPostMapping(@RequestBody CreateCourseRequest request) {
         saveCourse(request, request.getPrice());
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value = "/courses/postWithCustomResponseStatus", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public void postWithCustomResponseStatus(@RequestBody CreateCourseRequest request) {
         saveCourse(request, request.getPrice());
     }
 
-    public CourseModel getWithRequestMapping(UUID id) {
+
+    @RequestMapping(value = "/courses/getWithRequestMapping/{id}",
+            method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public CourseModel getWithRequestMapping(@PathVariable UUID id) {
         Optional<Course> courseOptional = courseRepository.findById(id);
         if (courseOptional.isPresent()) {
             return toModel(courseOptional.get());
@@ -56,7 +65,8 @@ public class CoursesController {
         }
     }
 
-    public CourseModel getWithGetMapping(UUID id) {
+    @GetMapping(value = "/courses/getWithGetMapping/{id}", produces = APPLICATION_JSON_VALUE)
+    public CourseModel getWithGetMapping(@PathVariable UUID id) {
         Optional<Course> courseOptional = courseRepository.findById(id);
         if (courseOptional.isPresent()) {
             return toModel(courseOptional.get());
@@ -65,9 +75,11 @@ public class CoursesController {
         }
     }
 
+
+    @PutMapping(value = "/courses/putWithPutMapping/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public CourseModel putWithPutMapping(
-            UpdateCourseRequest request,
-            UUID id) {
+            @RequestBody UpdateCourseRequest request,
+            @PathVariable UUID id) {
         Price price = request.getPrice();
         courseService.handle(UpdateCourse.builder()
                 .id(id)
@@ -81,12 +93,14 @@ public class CoursesController {
         return get(id);
     }
 
-    public void deleteCourse(UUID id) {
+    @DeleteMapping(value = BASE_URL + "{id}")
+    public void deleteCourse(@PathVariable UUID id) {
         courseService.deleteCourse(id);
     }
 
 
-    public CourseModel getWithRequestParam(UUID courseId) {
+    @GetMapping(value = "/courses/getWithRequestParam", produces = APPLICATION_JSON_VALUE)
+    public CourseModel getWithRequestParam(@RequestParam UUID courseId) {
         Optional<Course> courseOptional = courseRepository.findById(courseId);
         if (courseOptional.isPresent()) {
             return toModel(courseOptional.get());
