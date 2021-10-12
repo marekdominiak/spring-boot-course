@@ -91,7 +91,7 @@ class CoursesControllerSpec extends Specification implements BaseControllerV1Spe
     }
 
     /**
-     * Use /courses/getWithRequestMapping/{id} for mapping.
+     * Use /courses/getWithGetMapping/{id} for mapping.
      * Use @GetMapping annotation.
      * Use @PathVariable annotation
      */
@@ -100,7 +100,7 @@ class CoursesControllerSpec extends Specification implements BaseControllerV1Spe
         def createdCourse = rest.postForEntity(BASE_URL, request, CourseModel).body
 
         when:
-        def response = rest.getForEntity(BASE_URL + "getWithRequestMapping/" + createdCourse.id, CourseModel)
+        def response = rest.getForEntity(BASE_URL + "getWithGetMapping/" + createdCourse.id, CourseModel)
 
         then:
         response.getStatusCode() == OK
