@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 @Value
 public class Price {
-    @NotNull  // @NotNull vs @NonNull
+    @NotNull
     @Min(0)
     BigDecimal amount;
 
