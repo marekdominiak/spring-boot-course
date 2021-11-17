@@ -195,8 +195,6 @@ class CoursesControllerSpec extends Specification implements BaseControllerV1Spe
      * Use @PostMapping annotation
      */
     def "10. create course: validation for #request returns #expectedStatus"() {
-        given:
-
         when:
         def response = rest.postForEntity(BASE_URL + "postWithValidation", request, CourseModel)
 
