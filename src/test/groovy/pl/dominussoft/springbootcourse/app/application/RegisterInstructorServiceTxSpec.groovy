@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
+import spock.lang.Ignore
 import spock.lang.Specification
 
 @Transactional
 @SpringBootTest
 // --> test execution listener OR Rollback
-//@Ignore
+@Ignore
 class RegisterInstructorServiceTxSpec extends Specification {
 
     @Autowired
@@ -69,12 +70,10 @@ class RegisterInstructorServiceTxSpec extends Specification {
         def createInstructor = createInstructorCmd()
 
         when:
-        try {
-            service.registerInstructorNoTxThrow(createInstructor)
-        } catch (ignored) {
-        }
+        service.registerInstructorNoTxThrow(createInstructor)
 
         then:
+        thrown(RuntimeException)
         instructorRepository.findAll().size() == 0
     }
 
