@@ -3,9 +3,7 @@ package pl.dominussoft.springbootcourse.app.application
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations
 import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
-import pl.dominussoft.springbootcourse.app.infrastructure.persistence.CustomInstructorRepositoryImpl
 import spock.lang.Specification
 
 @DataJdbcTest
@@ -16,16 +14,10 @@ class RegisterInstructorServiceTx1Spec extends Specification {
     @Autowired
     InstructorRepository instructorRepository
 
-    @Autowired
-    NamedParameterJdbcOperations jdbc
-
-    CustomInstructorRepositoryImpl customInstructorRepository
-
     RegisterInstructorService service
 
     def setup() {
         service = new RegisterInstructorService(instructorRepository)
-        customInstructorRepository = new CustomInstructorRepositoryImpl(jdbc)
     }
 
     def "handle: saves instructor to db"() {
