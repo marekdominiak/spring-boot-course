@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.annotation.DirtiesContext
 import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
-import spock.lang.Ignore
 import spock.lang.Specification
 
 @SpringBootTest
@@ -62,7 +61,6 @@ class RegisterInstructorServiceNonTx2Spec extends Specification {
     }
 
 
-    @Ignore
     def "handleNoTxThrow: throws exception during and data should not be in the db"() {
         given:
         def createInstructor = createInstructorCmd()
