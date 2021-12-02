@@ -3,14 +3,12 @@ package pl.dominussoft.springbootcourse.app.infrastructure.web
 import org.springframework.hateoas.IanaLinkRelations
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import spock.lang.Ignore
 import spock.lang.Specification
 
 import static pl.dominussoft.springbootcourse.app.domain.UserAccountBuilder.aStudent
 import static pl.dominussoft.springbootcourse.app.domain.UserAccountBuilder.anAdmin
 import static pl.dominussoft.springbootcourse.app.infrastructure.web.CartController.BASE_URL
 
-@Ignore
 class CartControllerSpec extends Specification implements BaseControllerV1Spec {
 
     UUID course1
