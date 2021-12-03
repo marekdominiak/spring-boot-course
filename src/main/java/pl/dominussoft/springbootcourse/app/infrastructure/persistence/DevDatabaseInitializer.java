@@ -12,7 +12,17 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import pl.dominussoft.springbootcourse.app.domain.*;
+import pl.dominussoft.springbootcourse.app.domain.Cart;
+import pl.dominussoft.springbootcourse.app.domain.CartRepository;
+import pl.dominussoft.springbootcourse.app.domain.Course;
+import pl.dominussoft.springbootcourse.app.domain.CourseRepository;
+import pl.dominussoft.springbootcourse.app.domain.Currency;
+import pl.dominussoft.springbootcourse.app.domain.Instructor;
+import pl.dominussoft.springbootcourse.app.domain.InstructorRepository;
+import pl.dominussoft.springbootcourse.app.domain.Price;
+import pl.dominussoft.springbootcourse.app.domain.Role;
+import pl.dominussoft.springbootcourse.app.domain.UserAccount;
+import pl.dominussoft.springbootcourse.app.domain.UserAccountRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

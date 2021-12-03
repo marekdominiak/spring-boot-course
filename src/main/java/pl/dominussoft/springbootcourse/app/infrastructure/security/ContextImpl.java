@@ -14,7 +14,7 @@ public class ContextImpl implements Context {
     private final UserAccountRepository userAccountRepository;
 
     /**
-     * Another alternative would be with retruning optional, discuss what are pros and cons
+     * Another alternative would be with returning optional, discuss what are pros and cons
      * of throwing exception here, or returning null or Optional
      */
     @Override

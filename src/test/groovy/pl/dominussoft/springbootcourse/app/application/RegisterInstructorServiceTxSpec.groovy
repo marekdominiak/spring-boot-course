@@ -70,12 +70,10 @@ class RegisterInstructorServiceTxSpec extends Specification {
         def createInstructor = createInstructorCmd()
 
         when:
-        try {
-            service.registerInstructorNoTxThrow(createInstructor)
-        } catch (ignored) {
-        }
+        service.registerInstructorNoTxThrow(createInstructor)
 
         then:
+        thrown(RuntimeException)
         instructorRepository.findAll().size() == 0
     }
 
