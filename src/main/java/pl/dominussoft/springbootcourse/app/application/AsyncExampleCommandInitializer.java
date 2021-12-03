@@ -5,7 +5,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +41,6 @@ public class AsyncExampleCommandInitializer implements CommandLineRunner {
 
     @Service
     static class ImportantService {
-        @Async
         public void veryLongOperation() {
             try {
                 Thread.sleep(20000);
