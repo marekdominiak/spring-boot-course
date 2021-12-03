@@ -7,12 +7,10 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpStatus
-import org.springframework.test.context.ActiveProfiles
 import pl.dominussoft.springbootcourse.app.infrastructure.web.InstructorModel
 import pl.dominussoft.springbootcourse.app.infrastructure.web.RegisterInstructorRequest
 import spock.lang.Specification
 
-@ActiveProfiles("no-security")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class InstructorsControllerV1Spec extends Specification {
 
