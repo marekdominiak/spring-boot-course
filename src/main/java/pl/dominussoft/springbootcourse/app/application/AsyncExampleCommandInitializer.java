@@ -3,12 +3,9 @@ package pl.dominussoft.springbootcourse.app.application;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Profile("dev")
 @Component
 @Slf4j
