@@ -1,10 +1,14 @@
 package pl.dominussoft.springbootcourse.app.infrastructure.web;
 
+import lombok.Builder;
 import lombok.Value;
+import lombok.extern.jackson.Jacksonized;
 
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+@Builder
+@Jacksonized
 @Value
 public class CreateCourseRequest {
     @NotNull

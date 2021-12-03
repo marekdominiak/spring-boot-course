@@ -3,7 +3,13 @@ package pl.dominussoft.springbootcourse.app.application;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.dominussoft.springbootcourse.app.domain.*;
+import pl.dominussoft.springbootcourse.app.domain.Cart;
+import pl.dominussoft.springbootcourse.app.domain.CartRepository;
+import pl.dominussoft.springbootcourse.app.domain.Course;
+import pl.dominussoft.springbootcourse.app.domain.CourseAddedToCartEvent;
+import pl.dominussoft.springbootcourse.app.domain.CourseRepository;
+import pl.dominussoft.springbootcourse.app.domain.UserAccount;
+import pl.dominussoft.springbootcourse.app.domain.UserAccountRepository;
 
 import java.util.Optional;
 import java.util.Set;
@@ -34,11 +40,11 @@ public class AddCourseToCartService {
             Cart cart = cartOpt.get();
             cart.add(course);
             Cart saved = cartRepository.save(cart);
-            eventPublisher.publishEvent(new CourseAddedToCartEvent(course, userAccount));
+            eventPublisher.publishEvent(new CourseAddedToCartEvent(course, userAccount)); // @EventListener <---
             return saved.getId();
         } else {
             Cart saved = cartRepository.save(new Cart(userAccount.getId(), Set.of(course.getId())));
-            eventPublisher.publishEvent(new CourseAddedToCartEvent(course, userAccount));
+            eventPublisher.publishEvent(new CourseAddedToCartEvent(course, userAccount)); // @EventListener <---
             return saved.getId();
         }
     }
