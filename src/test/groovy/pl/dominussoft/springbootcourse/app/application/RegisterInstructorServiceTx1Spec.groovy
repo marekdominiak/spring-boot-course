@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations
 import pl.dominussoft.springbootcourse.app.domain.InstructorRepository
 import pl.dominussoft.springbootcourse.app.infrastructure.persistence.CustomInstructorRepositoryImpl
+import spock.lang.Ignore
 import spock.lang.Specification
 
 @DataJdbcTest
@@ -69,6 +70,7 @@ class RegisterInstructorServiceTx1Spec extends Specification {
     }
 
 
+    @Ignore
     def "handleNoTxThrow: throws exception during and data should not be in the db"() {
         given:
         def createInstructor = createInstructorCmd()
