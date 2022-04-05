@@ -1,9 +1,11 @@
 package pl.dominussoft.springbootcourse.app.infrastructure.web;
 
 import lombok.Value;
+import lombok.extern.jackson.Jacksonized;
 
 import java.util.Set;
 
+@Jacksonized
 @Value
 public class CreateCourseRequest {
     String title;
