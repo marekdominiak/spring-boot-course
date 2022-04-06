@@ -42,7 +42,7 @@ public interface InstructorRepository extends CrudRepository<Instructor, UUID> {
     List<Instructor> findByFirstNameOrderByAge(String firstName);
 
     @Query("SELECT * FROM INSTRUCTOR WHERE first_name like :likeString")
-    List<Instructor> findByFirstNameLikeCustom(String likeString);
+    List<Instructor> findByFirstNameLikeCustom(@Param("likeString") String likeString);
 
     @Query("SELECT first_name, last_name, age FROM INSTRUCTOR WHERE first_name = :firstName order by age DESC")
     List<InstructorView> findByFirstNameOrderByAgeDescCustom(String firstName);
