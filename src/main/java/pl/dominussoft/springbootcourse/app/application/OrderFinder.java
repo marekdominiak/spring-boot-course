@@ -1,5 +1,6 @@
 package pl.dominussoft.springbootcourse.app.application;
 
+import org.apache.commons.lang3.NotImplementedException;
 import pl.dominussoft.springbootcourse.app.domain.Order;
 import pl.dominussoft.springbootcourse.app.domain.OrderRepository;
 
@@ -19,6 +20,6 @@ public class OrderFinder {
     }
 
     public List<Order> findAll() {
-        throw new RuntimeException("To be implemented");
+        throw new NotImplementedException();
     }
 }
