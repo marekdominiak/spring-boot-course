@@ -84,7 +84,7 @@ class RegisterInstructorServiceNonTx2Spec extends Specification {
 //        def createInstructor = createInstructorCmd()
 //
 //        when:
-//        def instructorId = service.handleNoTx(createInstructor)
+//        def instructorId = service.registerInstructorNoTxThrow(createInstructor)
 //
 //        then:
 //        instructorRepository.findAll().size() == 1
