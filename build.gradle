@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.4'
+	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'org.asciidoctor.convert' version '1.5.8'
 	id 'java'
@@ -12,7 +12,7 @@ tasks.withType(JavaCompile) {
 
 group = 'pl.com.bottega'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
@@ -21,14 +21,15 @@ repositories {
 ext {
 	set('snippetsDir', file("build/generated-snippets"))
 	set('testcontainersVersion', "1.16.0")
+	set('lombokVersion', "1.18.24")
 }
 \
 dependencies {
-//	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//	implementation 'org.springframework.boot:spring-boot-starter-actuator' - monitoring
+//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' - anothern Spring data alternative
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+//	implementation 'org.springframework.boot:spring-boot-starter-data-rest' - dont use it anymore!
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -41,13 +42,12 @@ dependencies {
 
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	compileOnly 'org.projectlombok:lombok:1.18.20'
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
-	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 	runtimeOnly 'com.h2database:h2'
-
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
@@ -57,9 +57,9 @@ dependencies {
 	testImplementation 'org.spockframework:spock-spring:2.0-groovy-3.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webflux:2.5.5'
 
-	testCompileOnly 'org.projectlombok:lombok:1.18.20'
+	testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
 
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+	testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
 dependencyManagement {
