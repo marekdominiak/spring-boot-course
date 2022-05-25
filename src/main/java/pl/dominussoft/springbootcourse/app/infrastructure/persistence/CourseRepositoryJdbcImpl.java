@@ -2,10 +2,11 @@ package pl.dominussoft.springbootcourse.app.infrastructure.persistence;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.web.server.ResponseStatusException;
 import pl.dominussoft.springbootcourse.app.domain.Course;
 import pl.dominussoft.springbootcourse.app.domain.Currency;
 import pl.dominussoft.springbootcourse.app.domain.Price;
@@ -13,7 +14,11 @@ import pl.dominussoft.springbootcourse.app.domain.Price;
 import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -41,9 +46,8 @@ public class CourseRepositoryJdbcImpl {
         try {
             return Optional.ofNullable(jdbc.queryForObject(FIND_ONE_BY_ID, params, this::mapRow));
         } catch (IncorrectResultSizeDataAccessException e) {
-            throw new ResourceNotFoundException(String.format("Course with id: %s doesn't exist", id));
             // alternative version for Spring 5.0
-            // throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Course with id: %s doesn't exist", id));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Course with id: %s doesn't exist", id));
         }
     }
 
