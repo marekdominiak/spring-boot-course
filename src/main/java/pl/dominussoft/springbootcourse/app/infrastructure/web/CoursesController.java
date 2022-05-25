@@ -1,13 +1,17 @@
 package pl.dominussoft.springbootcourse.app.infrastructure.web;
 
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.server.ResponseStatusException;
 import pl.dominussoft.springbootcourse.app.application.CourseService;
 import pl.dominussoft.springbootcourse.app.application.CreateCourse;
 import pl.dominussoft.springbootcourse.app.application.UpdateCourse;
@@ -52,7 +56,7 @@ public class CoursesController {
         if (courseOptional.isPresent()) {
             return toModel(courseOptional.get());
         } else {
-            throw new ResourceNotFoundException("Course " + id + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course " + id + " not found");
         }
     }
 
@@ -61,7 +65,7 @@ public class CoursesController {
         if (courseOptional.isPresent()) {
             return toModel(courseOptional.get());
         } else {
-            throw new ResourceNotFoundException("Course " + id + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course " + id + " not found");
         }
     }
 
@@ -91,7 +95,7 @@ public class CoursesController {
         if (courseOptional.isPresent()) {
             return toModel(courseOptional.get());
         } else {
-            throw new ResourceNotFoundException("Course " + courseId + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course " + courseId + " not found");
         }
     }
 
@@ -138,7 +142,7 @@ public class CoursesController {
         if (courseOptional.isPresent()) {
             return toModel(courseOptional.get());
         } else {
-            throw new ResourceNotFoundException("Course " + id + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course " + id + " not found");
         }
     }
 
