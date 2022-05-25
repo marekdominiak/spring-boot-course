@@ -2,13 +2,17 @@ package pl.dominussoft.springbootcourse.app.infrastructure.web;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import pl.dominussoft.springbootcourse.app.application.AddCourseToCart;
 import pl.dominussoft.springbootcourse.app.application.AddCourseToCartService;
 import pl.dominussoft.springbootcourse.app.domain.Cart;
@@ -42,7 +46,7 @@ public class CartController {
         if (cartOpt.isPresent()) {
             return ResponseEntity.ok(toModel(cartOpt.get()));
         } else {
-            throw new ResourceNotFoundException("Cart resource with " + id + " wasn't found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart resource with " + id + " wasn't found");
         }
     }
 
@@ -53,7 +57,7 @@ public class CartController {
         if (cartOpt.isPresent()) {
             return toModel(cartOpt.get());
         } else {
-            throw new ResourceNotFoundException("Cart of user " + user.getId() + " wasn't found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart resource with " + user.getId() + " wasn't found");
         }
     }
 
