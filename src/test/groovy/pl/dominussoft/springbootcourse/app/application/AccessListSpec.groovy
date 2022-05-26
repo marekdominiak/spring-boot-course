@@ -11,9 +11,9 @@ class AccessListSpec extends Specification {
     AllowedDomains allowedDomains
 
     /**
-     * Use application.tax.percent from application properties
+     * get correct allowed domains from properties file
      */
-    def "tax rate calculated based on injected @Value"() {
+    def "get correct allowed domains from properties file"() {
         when:
         def list = allowedDomains.getAccessList()
 
