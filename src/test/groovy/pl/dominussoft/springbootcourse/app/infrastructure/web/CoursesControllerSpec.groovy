@@ -151,7 +151,7 @@ class CoursesControllerSpec extends Specification implements BaseControllerV1Spe
 
     /**
      * Use /courses/getWithRequestParam?courseId={id} for mapping.
-     * Use @DeleteMapping or an alternative version annotation
+     * Use @GetMapping or an alternative version annotation
      */
     def "8. get course by request param"() {
         def request = aCreateCourseRequest().build()
