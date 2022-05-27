@@ -21,7 +21,7 @@ public class AsyncExampleCommandInitializer implements CommandLineRunner {
     public void run(String... args) {
         log.info("Start Async Test:");
 //        asyncMethod();
-        importantService.veryLongOperation();
+        //importantService.veryLongOperation();
         log.info("End Async Test:");
     }
 
